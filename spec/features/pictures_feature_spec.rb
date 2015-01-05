@@ -59,7 +59,7 @@ feature 'pictures' do
 
     scenario 'lets a user edit a picture' do
       visit "/pictures/#{beach.id}"
-      click_link 'Edit Beach'
+      click_link 'Edit picture'
       fill_in 'Name', with: 'Sunny Beach'
       click_button 'Update Picture'
       expect(page).to have_content 'Sunny Beach'
@@ -74,7 +74,7 @@ feature 'pictures' do
 
     scenario 'removes a picture when a user clicks a delete link' do
       visit "/pictures/#{beach.id}"
-      click_link 'Delete Beach'
+      click_link 'Delete picture'
       expect(page).not_to have_content 'Beach'
       expect(page).to have_content 'Picture deleted successfully'
     end

@@ -10,8 +10,10 @@
 <% end %>
 
 <p><%= @picture.name %></p>
-<p><%= link_to "Edit #{@picture.name}", edit_picture_path(@picture) %> |
-<%= link_to "Delete #{@picture.name}", picture_path(@picture), method: :delete %></p>
+<p><%= link_to "Edit picture", edit_picture_path(@picture) %> |
+<%= link_to "Delete picture", picture_path(@picture), method: :delete %></p>
+<p><%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
+  <span class="likes_count"> <%= @picture.likes.count %></span> Likes</p>
 
 <% if @picture.comments.any? %>
   <ul>
@@ -22,7 +24,7 @@
     <% end %>
   </ul>
 <% else %>
-  <p>No comments.</p>
+  <p>No comments</p>
 <% end %>
 
 <%= form_for [@picture, @comment] do |f| %>
