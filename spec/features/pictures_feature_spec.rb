@@ -55,10 +55,10 @@ feature 'pictures' do
 
   context 'editing pictures' do
 
-    before { Picture.create name: 'Beach' }
+    let!(:beach) { Picture.create(name: 'Beach') }
 
     scenario 'lets a user edit a picture' do
-      visit '/pictures'
+      visit "/pictures/#{beach.id}"
       click_link 'Edit Beach'
       fill_in 'Name', with: 'Sunny Beach'
       click_button 'Update Picture'
@@ -70,10 +70,10 @@ feature 'pictures' do
 
   context 'deleting pictures' do
 
-    before { Picture.create name: 'Beach' }
+    let!(:beach) { Picture.create(name: 'Beach') }
 
     scenario 'removes a picture when a user clicks a delete link' do
-      visit '/pictures'
+      visit "/pictures/#{beach.id}"
       click_link 'Delete Beach'
       expect(page).not_to have_content 'Beach'
       expect(page).to have_content 'Picture deleted successfully'

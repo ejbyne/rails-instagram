@@ -1,4 +1,17 @@
+<% if @comment.errors.any? %>
+  <section id="errors" >
+    <p> <%= pluralize(@comment.errors.count, "error") %> prohibited the comment from being posted:</p>
+    <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
 <p><%= @picture.name %></p>
+<p><%= link_to "Edit #{@picture.name}", edit_picture_path(@picture) %> |
+<%= link_to "Delete #{@picture.name}", picture_path(@picture), method: :delete %></p>
 
 <% if @picture.comments.any? %>
   <ul>
