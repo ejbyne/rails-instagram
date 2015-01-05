@@ -81,4 +81,21 @@ feature 'pictures' do
 
   end
 
+  context 'allows an image to be uploaded for a picture' do
+
+    scenario "picture create form contains image upload option" do
+      visit '/pictures/new'
+      expect(page).to have_selector('#picture_image')
+    end
+
+    scenario "allows an image to be uploaded" do
+      visit '/pictures/new'
+      fill_in 'Name', with: "Del"
+      attach_file('picture[image]', 'spec/features/del.jpg')
+      click_button 'Upload Picture'
+      expect(page).to have_css("img[src*='del.jpg']")
+    end
+
+  end
+
 end
