@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/ejbyne/rails-instagram/badges/gpa.svg)](https://codeclimate.com/github/ejbyne/rails-instagram)
+[![Test Coverage](https://codeclimate.com/github/ejbyne/rails-instagram/badges/coverage.svg)](https://codeclimate.com/github/ejbyne/rails-instagram)
+
 # Instagram Clone (Ruby on Rails)
 
 ## *** APP UNDER CONSTRUCTION - NOT YET COMPLETE ***
