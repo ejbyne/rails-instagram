@@ -17,11 +17,11 @@
   <span class="likes_count"> <%= @picture.likes.count %></span> Likes</p>
 
 <% if @picture.comments.any? %>
-  <ul>
+  <ul id="comments">
     <% @picture.comments.each do |comment| %>
-      <li>
-        <%= comment.thoughts %>
-      </li>
+        <% if comment.errors.none? %>
+          <li><%= comment.thoughts %></li>  
+        <% end %>
     <% end %>
   </ul>
 <% else %>

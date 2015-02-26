@@ -20,7 +20,7 @@ feature 'adding comments' do
       click_link 'Beach'
       fill_in 'Thoughts', with: 'Aw'
       click_button 'Comment'
-      expect(page).not_to have_content('Aw')
+      expect('#comment').not_to have_content('Aw')
       expect(page).to have_content('error')
     end
 
@@ -29,7 +29,7 @@ feature 'adding comments' do
       click_link 'Beach'
       fill_in 'Thoughts', with: '*' * 151
       click_button 'Comment'
-      expect(page).not_to have_content('*')
+      expect('#comments').not_to have_content('*')
       expect(page).to have_content('error')
     end
 
