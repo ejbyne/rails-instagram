@@ -3,7 +3,7 @@
 
 # Instagram Clone (Ruby on Rails)
 
-## *** APP UNDER CONSTRUCTION - NOT YET COMPLETE ***
+## *** NOT YET COMPLETE ***
 
 ## Summary
 
