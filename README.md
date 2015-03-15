@@ -18,7 +18,7 @@ I have not yet completed the challenge, although the basic functionality is in p
 - User can sign up, sign in and sign out (including the option to sign in with Facebook)
 - User can upload pictures
 - User can comment on pictures
-- Users can like pictures
+- User can like pictures
 
 ## To do list
 
