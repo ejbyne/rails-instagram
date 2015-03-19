@@ -29,10 +29,20 @@
       </div>
     </header>
 
-    <div class="container">
-      <%= notice %>
-      <%= yield %>
+    <div class="wrapper">
+      <div class="container">
+        <%= notice %>
+        <%= yield %>
+      </div>
     </div>
+
+    <div class="push"></div>
+
+    <footer class="footer">
+      <small>
+        This website was built by Edward Byne using Ruby on Rails.
+      </small>
+    </footer>
 
   </body>
 </html>
