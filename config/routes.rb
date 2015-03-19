@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'pictures#index'
+  root 'homepage#index'
   resources :pictures do
     resources :comments
     resources :likes
