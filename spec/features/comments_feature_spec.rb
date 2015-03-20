@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'adding comments' do
  
   let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-  let!(:beach) { Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id) }
+  let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
   context 'leaving comments' do
 

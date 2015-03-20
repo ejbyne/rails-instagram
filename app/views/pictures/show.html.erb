@@ -9,7 +9,6 @@
   </section>
 <% end %>
 
-<p><%= @picture.name %></p>
 <%= image_tag @picture.image.url(:medium) %>
 <p><%= link_to "Edit picture", edit_picture_path(@picture) %> |
 <%= link_to "Delete picture", picture_path(@picture), method: :delete %></p>

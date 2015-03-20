@@ -10,7 +10,6 @@ feature 'liking pictures' do
     fill_in('Password confirmation', with: 'testtest')
     click_button('Sign up')
     click_link('Add a picture')
-    fill_in 'Name', with: "Del"
     attach_file('picture[image]', 'spec/features/del.jpg')
     click_button 'Upload Picture'
     click_link 'Like'

@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
       else
         render 'pictures/show'
       end
-    end
   end
 
   def comment_params

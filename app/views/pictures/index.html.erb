@@ -1,8 +1,7 @@
 <%= link_to 'Add a picture', new_picture_path, class: "btn btn-lg btn-primary" %>
 <% if @pictures.any? %>
   <% @pictures.each do |picture| %>
-    <%= link_to "#{picture.name}", picture_path(picture) %>
-    <%= image_tag picture.image.url(:thumb) %>
+    <%= link_to image_tag(picture.image.url(:thumb)), picture_path(picture) %>
   <% end %>
 <% else %>
   <h2>No pictures yet</h2>

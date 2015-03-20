@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Henrygram</title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -12,10 +14,19 @@
   </head>
   <body>
 
-    <header class="navbar navbar-fixed-top navbar-inverse">
+    <header class="navbar navbar-default navbar-fixed-top navbar-inverse" class="container">
       <div class="container">
-        <%= link_to "Henrygram", root_path, id: "logo" %>
-        <nav>
+        <div id="logo">
+          <%= link_to image_tag("henrylogo.gif", id: "logopicture"), root_path %>
+          <%= link_to "Henrygram", root_path, id: "logoname" %>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
               <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
@@ -25,7 +36,7 @@
               <li><%= link_to "Sign up", new_user_registration_path %></li>
             <% end %>
           </ul>
-        </nav>
+        </div>
       </div>
     </header>
 
