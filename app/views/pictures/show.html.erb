@@ -9,6 +9,8 @@
   </section>
 <% end %>
 
+<h2>Picture added by <%= find_user_email(@picture.user_id) %></h2>
+
 <%= image_tag @picture.image.url(:medium) %>
 <% if current_user && current_user.id == @picture.user_id %>
   <p><%= link_to "Delete picture", picture_path(@picture), method: :delete %></p>

@@ -15,20 +15,6 @@ The live version can be viewed [here](https://henrygram.herokuapp.com).
 
 The app has a user authentication system, including the ability to sign in with Facebook.
 
-## Features
-
-- User can sign up, sign in and sign out (including the option to sign in with Facebook)
-- User can upload pictures
-- User can comment on pictures
-- User can like pictures
-- User can only add a photo or a comment if he or she has signed in
-- User can only delete a photo that he or she has added
-
-## To do list
-
-- User can only edit or delete a comment they have added
-- Add CSS/Bootstrap
-
 ## Technologies used
 
 - Ruby
@@ -43,3 +29,19 @@ The app has a user authentication system, including the ability to sign in with 
 - Bootstrap
 - HTML
 - CSS
+
+## Features
+
+- User can sign up, sign in and sign out (including the option to sign in with Facebook)
+- User can upload pictures
+- User can comment on pictures
+- User can like pictures
+- User can only add a photo or a comment if he or she has signed in
+- User can only delete a photo that he or she has added
+- User can only delete a comment that he or she added
+
+## To do list
+
+- Improve CSS
+- Turn into single page app
+- Enable user to search for/filter photos

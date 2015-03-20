@@ -9,8 +9,16 @@
   </section>
 <% end %>
 
+<h2>Upload your picture</h2>
+
 <%= form_for @picture, html: { multipart: true } do |f| %>
   <%= f.label :image %>
   <%= f.file_field :image %>
+  <br>
+  <%= fields_for @comment do |fc| %>
+    <%= fc.label :thoughts %>
+    <%= fc.text_area :thoughts %>
+  <% end %>
+  <br>
   <%= f.submit 'Upload Picture' %>
 <% end %>
