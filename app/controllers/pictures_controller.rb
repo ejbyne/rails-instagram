@@ -7,7 +7,7 @@ class PicturesController < ApplicationController
   def new
     if current_user
       @picture = Picture.new
-      @comment = @picture.comments.new
+      @comment = Comment.new
     else
       flash[:notice] = "You must be logged in to add a picture"
       redirect_to new_user_session_path
@@ -19,7 +19,11 @@ class PicturesController < ApplicationController
     @comment = Comment.new(comment_params)
     @picture.user_id = current_user.id
     if @picture.save
-      @comment.save if @comment.thoughts != ""
+      if @comment.thoughts != ""
+        @comment.user_id = current_user.id
+        @comment.picture_id = @picture.id
+        @comment.save
+      end
       flash[:notice] = "Picture successfully created"
       redirect_to picture_path(@picture)
     else

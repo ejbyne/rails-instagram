@@ -66,6 +66,16 @@ feature 'adding comments' do
       expect(page).not_to have_content('Delete comment')
     end
 
+    scenario 'will enable a comment to be added when a picture is posted' do
+      sign_up
+      visit '/pictures/new'
+      attach_file('picture[image]', 'spec/features/del.jpg')
+      fill_in 'Thoughts', with: 'Delboy'
+      click_button 'Upload Picture'
+      expect(page).to have_css("img[src*='del.jpg']")
+      expect(page).to have_content('Delboy')
+    end
+
   end
 
   def sign_up
