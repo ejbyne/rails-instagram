@@ -2,14 +2,14 @@ class CommentsController < ApplicationController
 
   def create
     if current_user == nil
-      flash[:notice] = "You must be logged in to leave a comment"
+      flash[:danger] = "You must be logged in to leave a comment"
       redirect_to new_user_session_path
     else
       @picture = Picture.find(params[:picture_id])
       @comment = @picture.comments.new(comment_params)
       @comment.user_id = current_user.id
       if @comment.save
-        flash[:notice] = "Comment successfully created"
+        flash[:success] = "Comment successfully created"
         redirect_to picture_path(@picture)
       else
         render 'pictures/show'
@@ -21,12 +21,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @picture = Picture.find(@comment.picture_id)
     if current_user == nil || current_user.id != @comment.user_id
-      flash[:notice] = "You cannot delete a comment you haven't posted"
+      flash[:danger] = "You cannot delete a comment you haven't posted"
       redirect_to picture_path(@picture)
     else
-      @picture.destroy
-      flash[:notice] = 'Comment deleted successfully'
-      redirect_to pictures_path(@picture)
+      @comment.destroy
+      flash[:success] = 'Comment deleted successfully'
+      redirect_to picture_path(@picture)
     end
   end
 

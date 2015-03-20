@@ -9,7 +9,7 @@ class PicturesController < ApplicationController
       @picture = Picture.new
       @comment = Comment.new
     else
-      flash[:notice] = "You must be logged in to add a picture"
+      flash[:danger] = "You must be logged in to add a picture"
       redirect_to new_user_session_path
     end
   end
@@ -24,7 +24,7 @@ class PicturesController < ApplicationController
         @comment.picture_id = @picture.id
         @comment.save
       end
-      flash[:notice] = "Picture successfully added"
+      flash[:success] = "Picture successfully added"
       redirect_to picture_path(@picture)
     else
       render 'pictures/new'
@@ -39,11 +39,11 @@ class PicturesController < ApplicationController
   def destroy
     @picture = Picture.find(params[:id])
     if current_user == nil || current_user.id != @picture.user_id
-      flash[:notice] = "You cannot delete a picture you haven't posted"
+      flash[:danger] = "You cannot delete a picture you haven't posted"
       redirect_to picture_path(@picture)
     else
       @picture.destroy
-      flash[:notice] = 'Picture deleted successfully'
+      flash[:success] = 'Picture deleted successfully'
       redirect_to pictures_path
     end
   end

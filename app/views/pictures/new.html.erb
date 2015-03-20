@@ -1,12 +1,12 @@
 <% if @picture.errors.any? %>
-  <section id="errors" >
-    <p> <%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</p>
+  <div id="error-explanation" >
+    <div class="alert alert-danger"><%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</div>
     <ul>
       <% @picture.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
-  </section>
+  </div>
 <% end %>
 
 <h2>Upload your picture</h2>

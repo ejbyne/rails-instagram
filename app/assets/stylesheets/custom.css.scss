@@ -82,4 +82,45 @@ h2 {
 textarea {
   vertical-align: middle;
   width: 500px;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+img.main-pic {
+  width: 100%;
+}
+
+section {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.return-button {
+  text-align: right;
+  margin-bottom: -10px;
+}
+
+.delete-pic {
+  float: right;
 }

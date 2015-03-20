@@ -1,5 +1,5 @@
 <% if @comment.errors.any? %>
-  <section id="errors" >
+  <section id="error_explanation" >
     <p> <%= pluralize(@comment.errors.count, "error") %> prohibited the comment from being posted:</p>
     <ul>
       <% @comment.errors.full_messages.each do |message| %>
@@ -9,37 +9,44 @@
   </section>
 <% end %>
 
-<h2>Picture added by <%= find_user_email(@picture.user_id) %></h2>
+<section>
 
-<%= image_tag @picture.image.url(:medium) %>
-<br><br>
-<% if current_user && current_user.id == @picture.user_id %>
-  <p><%= link_to "Delete picture", picture_path(@picture), method: :delete %></p>
-<% end %>
-<p><%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
-  <span class="likes_count"> <%= @picture.likes.count %></span> Likes</p>
+  <div class="return-button"><%= link_to 'Back to pictures', pictures_path, class: "btn btn-primary" %></div>
+  <h2>Picture added by <%= find_user_email(@picture.user_id) %></h2>
 
-<h2>Comments</h2>
-<% if @picture.comments.any? %>
-  <ul id="comments">
-    <% @picture.comments.each do |comment| %>
-        <% if comment.errors.none? %>
-          <li>
-            <%= find_user_email(comment.user_id) %>: <%= comment.comment %> | 
-            <% if current_user && current_user.id == comment.user_id %>
-              <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
-            <% end %>
-          </li> 
-        <% end %>
+  <%= image_tag @picture.image.url(:medium), class: "main-pic" %>
+  <br><br>
+  <p>
+    <%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
+    <span class="likes_count"> <%= @picture.likes.count %></span> Likes
+    <% if current_user && current_user.id == @picture.user_id %>
+    <%= link_to "Delete picture", picture_path(@picture), method: :delete, class: "delete-pic" %>
     <% end %>
-  </ul>
-<% else %>
-  <p>No comments</p>
-<% end %>
-<br>
+  </p>
 
-<%= form_for [@picture, @comment] do |f| %>
-  <%= f.label :comment %>
-  <%= f.text_area :comment %>
-  <%= f.submit 'Comment' %>
-<% end %>
+  <h2>Comments</h2>
+  <% if @picture.comments.any? %>
+    <ul id="comments">
+      <% @picture.comments.each do |comment| %>
+          <% if comment.errors.none? %>
+            <li>
+              <%= find_user_email(comment.user_id) %>: <%= comment.comment %> | 
+              <% if current_user && current_user.id == comment.user_id %>
+                <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
+              <% end %>
+            </li> 
+          <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No comments</p>
+  <% end %>
+  <br>
+
+  <%= form_for [@picture, @comment] do |f| %>
+    <%= f.label :comment %>
+    <%= f.text_area :comment %>
+    <%= f.submit 'Comment' %>
+  <% end %>
+
+</section>
