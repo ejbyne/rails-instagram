@@ -19,12 +19,12 @@ class PicturesController < ApplicationController
     @comment = Comment.new(comment_params)
     @picture.user_id = current_user.id
     if @picture.save
-      if @comment.thoughts != ""
+      if @comment.comment != ""
         @comment.user_id = current_user.id
         @comment.picture_id = @picture.id
         @comment.save
       end
-      flash[:notice] = "Picture successfully created"
+      flash[:notice] = "Picture successfully added"
       redirect_to picture_path(@picture)
     else
       render 'pictures/new'
@@ -55,7 +55,7 @@ class PicturesController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:thoughts)
+      params.require(:comment).permit(:comment)
     end
 
 end

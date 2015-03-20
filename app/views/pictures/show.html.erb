@@ -12,18 +12,20 @@
 <h2>Picture added by <%= find_user_email(@picture.user_id) %></h2>
 
 <%= image_tag @picture.image.url(:medium) %>
+<br><br>
 <% if current_user && current_user.id == @picture.user_id %>
   <p><%= link_to "Delete picture", picture_path(@picture), method: :delete %></p>
 <% end %>
 <p><%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
   <span class="likes_count"> <%= @picture.likes.count %></span> Likes</p>
 
+<h2>Comments</h2>
 <% if @picture.comments.any? %>
   <ul id="comments">
     <% @picture.comments.each do |comment| %>
         <% if comment.errors.none? %>
           <li>
-            <%= comment.thoughts %> | 
+            <%= find_user_email(comment.user_id) %>: <%= comment.comment %> | 
             <% if current_user && current_user.id == comment.user_id %>
               <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
             <% end %>
@@ -34,9 +36,10 @@
 <% else %>
   <p>No comments</p>
 <% end %>
+<br>
 
 <%= form_for [@picture, @comment] do |f| %>
-  <%= f.label :thoughts %>
-  <%= f.text_area :thoughts %>
+  <%= f.label :comment %>
+  <%= f.text_area :comment %>
   <%= f.submit 'Comment' %>
 <% end %>

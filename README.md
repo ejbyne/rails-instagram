@@ -33,7 +33,7 @@ The app has a user authentication system, including the ability to sign in with 
 ## Features
 
 - User can sign up, sign in and sign out (including the option to sign in with Facebook)
-- User can upload pictures
+- User can upload pictures (with or without a comment)
 - User can comment on pictures
 - User can like pictures
 - User can only add a photo or a comment if he or she has signed in

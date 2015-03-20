@@ -11,7 +11,7 @@ feature 'adding comments' do
       sign_up
       visit '/pictures'
       find('.picture-link').click
-      fill_in 'Thoughts', with: 'Awesome'
+      fill_in 'Comment', with: 'Awesome'
       click_button 'Comment'
       expect(current_path).to eq "/pictures/#{beach.id}"
       expect(page).to have_content('Awesome')
@@ -20,7 +20,7 @@ feature 'adding comments' do
     scenario 'does not allow users to leave a comment if they are not logged in' do
       visit '/pictures'
       find('.picture-link').click
-      fill_in 'Thoughts', with: 'Awesome'
+      fill_in 'Comment', with: 'Awesome'
       click_button 'Comment'
       expect(page).to have_content('You must be logged in to leave a comment')
       expect(page).not_to have_content('Awesome')
@@ -30,7 +30,7 @@ feature 'adding comments' do
       sign_up
       visit '/pictures'
       find('.picture-link').click
-      fill_in 'Thoughts', with: 'Aw'
+      fill_in 'Comment', with: 'Aw'
       click_button 'Comment'
       expect('#comment').not_to have_content('Aw')
       expect(page).to have_content('error')
@@ -40,7 +40,7 @@ feature 'adding comments' do
       sign_up
       visit '/pictures'
       find('.picture-link').click
-      fill_in 'Thoughts', with: '*' * 151
+      fill_in 'Comment', with: '*' * 151
       click_button 'Comment'
       expect('#comments').not_to have_content('*')
       expect(page).to have_content('error')
@@ -50,7 +50,7 @@ feature 'adding comments' do
       sign_up
       visit '/pictures'
       find('.picture-link').click
-      fill_in 'Thoughts', with: 'Great'
+      fill_in 'Comment', with: 'Great'
       click_button 'Comment'
       expect(page).to have_content('Great')
       click_link 'Delete comment'
@@ -58,7 +58,7 @@ feature 'adding comments' do
     end
 
     scenario 'will not let a user delete a comment he or she has not created' do
-      Comment.create(thoughts: 'Awful', picture_id: beach.id, user_id: user.id)
+      Comment.create(comment: 'Awful', picture_id: beach.id, user_id: user.id)
       sign_up
       visit '/pictures'
       find('.picture-link').click
@@ -70,7 +70,7 @@ feature 'adding comments' do
       sign_up
       visit '/pictures/new'
       attach_file('picture[image]', 'spec/features/del.jpg')
-      fill_in 'Thoughts', with: 'Delboy'
+      fill_in 'Comment', with: 'Delboy'
       click_button 'Upload Picture'
       expect(page).to have_css("img[src*='del.jpg']")
       expect(page).to have_content('Delboy')

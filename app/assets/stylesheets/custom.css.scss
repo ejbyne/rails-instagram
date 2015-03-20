@@ -52,7 +52,7 @@ h1 {
 h2 {
   font-size: 1.2em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-weight: normal;
   color: #777;
 }
@@ -79,3 +79,7 @@ h2 {
   text-align: center;
 }
 
+textarea {
+  vertical-align: middle;
+  width: 500px;
+}

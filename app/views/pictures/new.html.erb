@@ -16,9 +16,9 @@
   <%= f.file_field :image %>
   <br>
   <%= fields_for @comment do |fc| %>
-    <%= fc.label :thoughts %>
-    <%= fc.text_area :thoughts %>
+    <%= fc.label :comment %>
+    <%= fc.text_area :comment %>
   <% end %>
-  <br>
+  <br><br>
   <%= f.submit 'Upload Picture' %>
 <% end %>

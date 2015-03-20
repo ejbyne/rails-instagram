@@ -36,7 +36,6 @@ feature 'pictures' do
       attach_file('picture[image]', 'spec/features/del.jpg')
       click_button 'Upload Picture'
       del = Picture.find_by(image_file_name: 'del.jpg')
-      # expect(page).to have_content 'Beach'
       expect(current_path).to eq "/pictures/#{del.id}"
     end
 
