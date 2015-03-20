@@ -5,13 +5,24 @@ class PicturesController < ApplicationController
   end
 
   def new
-    @picture = Picture.new
+    if current_user
+      @picture = Picture.new
+    else
+      flash[:notice] = "You must be logged in to add a picture"
+      redirect_to new_user_session_path
+    end
   end
 
   def create
-    @picture = Picture.create(picture_params)
-    flash[:notice] = "Picture successfully created"
-    redirect_to picture_path(@picture)
+    @picture = Picture.new(picture_params)
+    @picture.user_id = current_user.id
+    if @picture.save
+      flash[:notice] = "Picture successfully created"
+      redirect_to picture_path(@picture)
+    elsif current_user == nil
+      flash[:notice] = "You must be logged in to add a picture"
+      redirect_to new_user_session_path
+    end
   end
 
   def show

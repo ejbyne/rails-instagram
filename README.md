@@ -23,9 +23,9 @@ I have not yet completed the challenge, although the basic functionality is in p
 ## To do list
 
 - User can only add a photo or a comment if they have signed in
-- User can delete a photo that they have added
+- User can only delete a photo that they have added
+- User can only edit or delete a comment they have added
 - Add CSS/Bootstrap
-- Bonus if you can add filters
 
 ## Technologies used
 

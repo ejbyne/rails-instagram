@@ -14,4 +14,9 @@ describe Picture, :type => :model do
     expect(picture).not_to be_valid
   end
 
+  it 'is not valid if the user is not logged in' do
+    picture = Picture.new(name: '*' * 10)
+    expect(picture).not_to be_valid
+  end
+
 end
