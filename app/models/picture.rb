@@ -2,7 +2,8 @@ class Picture < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   belongs_to :user
-  validates :name, length: { minimum: 3, maximum: 150 }
+  validates :image_file_name, presence: true
+  validates :name, length: { minimum: 3, maximum: 150 }, presence: true
   validates :user_id, presence: true
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
                     :default_url => ":style/missing.png"

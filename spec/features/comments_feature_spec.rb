@@ -3,11 +3,12 @@ require 'rails_helper'
 feature 'adding comments' do
  
   let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-  let!(:beach) { Picture.create(name: 'Beach', user_id: user.id) }
+  let!(:beach) { Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id) }
 
   context 'leaving comments' do
 
     scenario 'allows users to leave a comment using a form' do
+      sign_up
       visit '/pictures'
       click_link 'Beach'
       fill_in 'Thoughts', with: 'Awesome'
@@ -26,6 +27,7 @@ feature 'adding comments' do
     end
 
     scenario 'will not let users leave a comment that is too short' do
+      sign_up
       visit '/pictures'
       click_link 'Beach'
       fill_in 'Thoughts', with: 'Aw'
@@ -35,6 +37,7 @@ feature 'adding comments' do
     end
 
     scenario 'will not let users leave a comment that is too long' do
+      sign_up
       visit '/pictures'
       click_link 'Beach'
       fill_in 'Thoughts', with: '*' * 151
@@ -43,6 +46,15 @@ feature 'adding comments' do
       expect(page).to have_content('error')
     end
 
+  end
+
+  def sign_up
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
   end
 
 end

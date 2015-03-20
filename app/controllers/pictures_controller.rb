@@ -19,9 +19,8 @@ class PicturesController < ApplicationController
     if @picture.save
       flash[:notice] = "Picture successfully created"
       redirect_to picture_path(@picture)
-    elsif current_user == nil
-      flash[:notice] = "You must be logged in to add a picture"
-      redirect_to new_user_session_path
+    else
+      render 'pictures/new'
     end
   end
 

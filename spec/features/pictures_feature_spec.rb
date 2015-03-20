@@ -16,7 +16,7 @@ feature 'pictures' do
 
     before do
       user = User.create(email: "test@test.com", password: "testtest")
-      Picture.create(name: 'Beach', user_id: user.id)
+      Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id)
     end
 
     scenario 'display pictures' do
@@ -34,6 +34,7 @@ feature 'pictures' do
       visit '/pictures'
       click_link 'Add a picture'
       fill_in 'Name', with: 'Beach'
+      attach_file('picture[image]', 'spec/features/del.jpg')
       click_button 'Upload Picture'
       beach = Picture.find_by(name: 'Beach')
       expect(page).to have_content 'Beach'
@@ -52,7 +53,7 @@ feature 'pictures' do
   context 'viewing pictures' do
 
     let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(name: 'Beach', user_id: user.id) }
+    let!(:beach) { Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'lets a user view a picture' do
       visit '/pictures'
@@ -66,7 +67,7 @@ feature 'pictures' do
   context 'editing pictures' do
 
     let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(name: 'Beach', user_id: user.id) }
+    let!(:beach) { Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'lets a user edit a picture' do
       visit "/pictures/#{beach.id}"
@@ -82,7 +83,7 @@ feature 'pictures' do
   context 'deleting pictures' do
 
     let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(name: 'Beach', user_id: user.id) }
+    let!(:beach) { Picture.create(name: 'Beach', image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'removes a picture when a user clicks a delete link' do
       visit "/pictures/#{beach.id}"

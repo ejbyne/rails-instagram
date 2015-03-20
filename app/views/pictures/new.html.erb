@@ -1,3 +1,14 @@
+<% if @picture.errors.any? %>
+  <section id="errors" >
+    <p> <%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</p>
+    <ul>
+      <% @picture.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
 <%= form_for @picture, html: { multipart: true } do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
