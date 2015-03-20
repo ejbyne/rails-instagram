@@ -46,6 +46,26 @@ feature 'adding comments' do
       expect(page).to have_content('error')
     end
 
+    scenario 'will let a user delete a comment he or she has created' do
+      sign_up
+      visit '/pictures'
+      find('.picture-link').click
+      fill_in 'Thoughts', with: 'Great'
+      click_button 'Comment'
+      expect(page).to have_content('Great')
+      click_link 'Delete comment'
+      expect(page).not_to have_content('Great')
+    end
+
+    scenario 'will not let a user delete a comment he or she has not created' do
+      Comment.create(thoughts: 'Awful', picture_id: beach.id, user_id: user.id)
+      sign_up
+      visit '/pictures'
+      find('.picture-link').click
+      expect(page).to have_content('Awful')
+      expect(page).not_to have_content('Delete comment')
+    end
+
   end
 
   def sign_up

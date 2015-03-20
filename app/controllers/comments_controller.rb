@@ -17,8 +17,23 @@ class CommentsController < ApplicationController
     end
   end
 
-  def comment_params
-    params.require(:comment).permit(:thoughts)
+  def destroy
+    @comment = Comment.find(params[:id])
+    @picture = Picture.find(@comment.picture_id)
+    if current_user == nil || current_user.id != @comment.user_id
+      flash[:notice] = "You cannot delete a comment you haven't posted"
+      redirect_to picture_path(@picture)
+    else
+      @picture.destroy
+      flash[:notice] = 'Comment deleted successfully'
+      redirect_to pictures_path(@picture)
+    end
   end
+
+  private
+
+    def comment_params
+      params.require(:comment).permit(:thoughts)
+    end
 
 end

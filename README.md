@@ -22,10 +22,10 @@ The app has a user authentication system, including the ability to sign in with 
 - User can comment on pictures
 - User can like pictures
 - User can only add a photo or a comment if he or she has signed in
+- User can only delete a photo that he or she has added
 
 ## To do list
 
-- User can only delete a photo that they have added
 - User can only edit or delete a comment they have added
 - Add CSS/Bootstrap
 
