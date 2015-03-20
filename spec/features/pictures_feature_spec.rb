@@ -21,7 +21,7 @@ feature 'pictures' do
 
     scenario 'display pictures' do
       visit '/pictures'
-      expect(page).to have_content('Beach')
+      expect(page).to have_css('.thumbnail')
       expect(page).not_to have_content('No pictures')
     end
 
@@ -35,9 +35,9 @@ feature 'pictures' do
       click_link 'Add a picture'
       attach_file('picture[image]', 'spec/features/del.jpg')
       click_button 'Upload Picture'
-      beach = Picture.find_by(name: 'Beach')
-      expect(page).to have_content 'Beach'
-      expect(current_path).to eq "/pictures/#{beach.id}"
+      del = Picture.find_by(image_file_name: 'del.jpg')
+      # expect(page).to have_content 'Beach'
+      expect(current_path).to eq "/pictures/#{del.id}"
     end
 
 
@@ -56,24 +56,8 @@ feature 'pictures' do
 
     scenario 'lets a user view a picture' do
       visit '/pictures'
-      find('img').click
+      find('.picture-link').click
       expect(current_path).to eq "/pictures/#{beach.id}"
-    end
-
-  end
-
-  context 'editing pictures' do
-
-    let!(:user) { User.create(email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
-
-    scenario 'lets a user edit a picture' do
-      visit "/pictures/#{beach.id}"
-      click_link 'Edit picture'
-      fill_in 'Name', with: 'Sunny Beach'
-      click_button 'Update Picture'
-      expect(page).to have_content 'Sunny Beach'
-      expect(current_path).to eq '/pictures'   
     end
 
   end

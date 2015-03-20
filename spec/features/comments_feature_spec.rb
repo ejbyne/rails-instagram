@@ -10,7 +10,7 @@ feature 'adding comments' do
     scenario 'allows users to leave a comment using a form' do
       sign_up
       visit '/pictures'
-      click_link 'Beach'
+      find('.picture-link').click
       fill_in 'Thoughts', with: 'Awesome'
       click_button 'Comment'
       expect(current_path).to eq "/pictures/#{beach.id}"
@@ -19,7 +19,7 @@ feature 'adding comments' do
 
     scenario 'does not allow users to leave a comment if they are not logged in' do
       visit '/pictures'
-      click_link 'Beach'
+      find('.picture-link').click
       fill_in 'Thoughts', with: 'Awesome'
       click_button 'Comment'
       expect(page).to have_content('You must be logged in to leave a comment')
@@ -29,7 +29,7 @@ feature 'adding comments' do
     scenario 'will not let users leave a comment that is too short' do
       sign_up
       visit '/pictures'
-      click_link 'Beach'
+      find('.picture-link').click
       fill_in 'Thoughts', with: 'Aw'
       click_button 'Comment'
       expect('#comment').not_to have_content('Aw')
@@ -39,7 +39,7 @@ feature 'adding comments' do
     scenario 'will not let users leave a comment that is too long' do
       sign_up
       visit '/pictures'
-      click_link 'Beach'
+      find('.picture-link').click
       fill_in 'Thoughts', with: '*' * 151
       click_button 'Comment'
       expect('#comments').not_to have_content('*')
