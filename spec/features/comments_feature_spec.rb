@@ -16,6 +16,15 @@ feature 'adding comments' do
       expect(page).to have_content('Awesome')
     end
 
+    scenario 'does not allow users to leave a comment if they are not logged in' do
+      visit '/pictures'
+      click_link 'Beach'
+      fill_in 'Thoughts', with: 'Awesome'
+      click_button 'Comment'
+      expect(page).to have_content('You must be logged in to leave a comment')
+      expect(page).not_to have_content('Awesome')
+    end
+
     scenario 'will not let users leave a comment that is too short' do
       visit '/pictures'
       click_link 'Beach'
