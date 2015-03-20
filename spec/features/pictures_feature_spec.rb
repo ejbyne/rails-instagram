@@ -68,10 +68,24 @@ feature 'pictures' do
     let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'removes a picture when a user clicks a delete link' do
+      visit "/"
+      click_link "Sign in"
+      fill_in("Email", with: "test@test.com")
+      fill_in("Password", with: "testtest")
+      click_button("Log in")
       visit "/pictures/#{beach.id}"
       click_link 'Delete picture'
       expect(page).not_to have_content 'Beach'
       expect(page).to have_content 'Picture deleted successfully'
+    end
+
+    scenario 'does not let a user delete a picture he or she has not created' do
+      sign_up
+      visit "/pictures/#{beach.id}"
+      expect(page).not_to have_content("Delete picture")
+      page.driver.delete("/pictures/#{beach.id}")
+      visit "/pictures"
+      expect(page).to have_css(".thumbnail")
     end
 
   end
