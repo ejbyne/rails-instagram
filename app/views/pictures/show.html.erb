@@ -12,14 +12,14 @@
 <section>
 
   <div class="return-button"><%= link_to 'Back to pictures', pictures_path, class: "btn btn-primary" %></div>
-  <h2>Picture added by <%= find_user_email(@picture.user_id) %></h2>
+  <h2>Picture added by <%= find_username(@picture.user_id) %></h2>
 
   <%= image_tag @picture.image.url(:medium), class: "main-pic" %>
   <br><br>
   <p>
     <%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
     <span class="likes_count"> <%= @picture.likes.count %></span> Likes
-    <% if current_user && current_user.id == @picture.user_id %>
+    <% if user_signed_in? && current_user.id == @picture.user_id %>
     <%= link_to "Delete picture", picture_path(@picture), method: :delete, class: "delete-pic" %>
     <% end %>
   </p>
@@ -30,8 +30,8 @@
       <% @picture.comments.each do |comment| %>
           <% if comment.errors.none? %>
             <li>
-              <%= find_user_email(comment.user_id) %>: <%= comment.comment %> | 
-              <% if current_user && current_user.id == comment.user_id %>
+              <%= find_username(comment.user_id) %>: <%= comment.comment %> | 
+              <% if user_signed_in? && current_user.id == comment.user_id %>
                 <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
               <% end %>
             </li> 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'adding comments' do
  
-  let!(:user) { User.create(email: "test@test.com", password: "testtest") }
+  let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
   let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
   context 'leaving comments' do
@@ -14,7 +14,7 @@ feature 'adding comments' do
       fill_in 'Comment', with: 'Awesome'
       click_button 'Comment'
       expect(current_path).to eq "/pictures/#{beach.id}"
-      expect(page).to have_content('Awesome')
+      expect(page).to have_content('example: Awesome')
     end
 
     scenario 'does not allow users to leave a comment if they are not logged in' do
@@ -81,6 +81,7 @@ feature 'adding comments' do
   def sign_up
     visit('/')
     click_link('Sign up')
+    fill_in('Username', with: 'example')
     fill_in('Email', with: 'test@example.com')
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')

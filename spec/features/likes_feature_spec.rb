@@ -5,6 +5,7 @@ feature 'liking pictures' do
   scenario 'a user can like a picture, which updates the like count', js: true do
     visit '/'
     click_link('Sign up')
+    fill_in('Username', with: 'test')
     fill_in('Email', with: 'test@example.com')
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')

@@ -15,7 +15,7 @@ feature 'pictures' do
   context 'pictures have been added' do
 
     before do
-      user = User.create(email: "test@test.com", password: "testtest")
+      user = User.create(username: "test", email: "test@test.com", password: "testtest")
       Picture.create(image_file_name: "mock_image", user_id: user.id)
     end
 
@@ -50,7 +50,7 @@ feature 'pictures' do
 
   context 'viewing pictures' do
 
-    let!(:user) { User.create(email: "test@test.com", password: "testtest") }
+    let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
     let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'lets a user view a picture' do
@@ -63,7 +63,7 @@ feature 'pictures' do
 
   context 'deleting pictures' do
 
-    let!(:user) { User.create(email: "test@test.com", password: "testtest") }
+    let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
     let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'removes a picture when a user clicks a delete link' do
@@ -105,11 +105,20 @@ feature 'pictures' do
       expect(page).to have_css("img[src*='del.jpg']")
     end
 
+    scenario "shows the username of the user who uploaded the picture" do
+      sign_up
+      visit '/pictures/new'
+      attach_file('picture[image]', 'spec/features/del.jpg')
+      click_button 'Upload Picture'
+      expect(page).to have_content('Picture added by test')
+    end
+
   end
 
   def sign_up
     visit('/')
     click_link('Sign up')
+    fill_in('Username', with: 'test')
     fill_in('Email', with: 'test@example.com')
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')

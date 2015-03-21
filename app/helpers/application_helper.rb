@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-  def find_user_email(id)
-    User.find(id).email
+  def find_username(id)
+    User.find(id).username
   end
 
 end

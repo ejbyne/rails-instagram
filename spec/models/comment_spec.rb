@@ -3,14 +3,14 @@ require 'spec_helper'
 describe Comment, :type => :model do
 
   it 'is not valid with a name of less than three characters' do
-    user = User.new(email: "test@test.com", password: "testtest")
+    user = User.new(username: "test", email: "test@test.com", password: "testtest")
     comment = Comment.new(comment: 'Aw', user_id: user.id)
     expect(comment).to have(1).error_on(:comment)
     expect(comment).not_to be_valid
   end
 
   it 'is not valid with a name of more than 150 characters' do
-    user = User.new(email: "test@test.com", password: "testtest")
+    user = User.new(username: "test", email: "test@test.com", password: "testtest")
     comment = Comment.new(comment: '*' * 151, user_id: user.id)
     expect(comment).to have(1).error_on(:comment)
     expect(comment).not_to be_valid
