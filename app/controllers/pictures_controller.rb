@@ -38,7 +38,7 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture = Picture.find(params[:id])
-    if current_user == nil || current_user.id != @picture.user_id
+    if !user_signed_in? || current_user.id != @picture.user_id
       flash[:danger] = "You cannot delete a picture you haven't posted"
       redirect_to picture_path(@picture)
     else

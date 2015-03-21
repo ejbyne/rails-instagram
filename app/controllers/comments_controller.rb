@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def create
-    if current_user == nil
+    if !user_signed_in?
       flash[:danger] = "You must be logged in to leave a comment"
       redirect_to new_user_session_path
     else
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @picture = Picture.find(@comment.picture_id)
-    if current_user == nil || current_user.id != @comment.user_id
+    if !user_signed_in? || current_user.id != @comment.user_id
       flash[:danger] = "You cannot delete a comment you haven't posted"
       redirect_to picture_path(@picture)
     else
