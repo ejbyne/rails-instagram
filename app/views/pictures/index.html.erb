@@ -1,9 +1,15 @@
-<h2>Henry's Pictures</h2>
+<div class="container">
+  <h2>Henry's Pictures</h2>
+</div>
 <% if @pictures.any? %>
   <% @pictures.each do |picture| %>
-    <%= link_to image_tag(picture.image.url(:thumb), class: "thumbnail"), picture_path(picture), class: "picture-link" %>
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <%= link_to image_tag(picture.image.url(:thumb), class: "thumbnail"), picture_path(picture) %>
+    </div>
   <% end %>
 <% else %>
-  <h2>No pictures yet</h2>
-  <%= link_to 'Add a picture', new_picture_path, class: "btn btn-lg btn-primary" %>
+  <div class="container">
+    <h2>No pictures yet</h2>
+    <%= link_to 'Add a picture', new_picture_path, class: "btn btn-lg btn-primary" %>
+  </div>
 <% end %>
