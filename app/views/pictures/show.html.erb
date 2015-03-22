@@ -16,7 +16,7 @@
       <%= link_to "<span class=\"glyphicon glyphicon-chevron-right\"></span>".html_safe, picture_path(@next_picture), class: "btn btn-default" %>
     </div>
   </div><br>
-  <h2>Picture added by <%= find_username(@picture.user_id) %></h2>
+  <h2>Picture added by <%= find_username(@picture.user_id) %> (<%= time_since_created(@picture.created_at) %>)</h2>
   <%= image_tag @picture.image.url(:medium), class: "main-pic" %>
   <br><br>
   <p>
@@ -32,7 +32,7 @@
       <% @picture.comments.each do |comment| %>
           <% if comment.errors.none? %>
             <li>
-              <%= find_username(comment.user_id) %>: <%= comment.comment %> | 
+              <%= find_username(comment.user_id) %>: <%= comment.comment %> (<%= time_since_created(comment.created_at) %>) | 
               <% if user_signed_in? && current_user.id == comment.user_id %>
                 <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
               <% end %>
