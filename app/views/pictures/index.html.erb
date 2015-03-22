@@ -8,6 +8,8 @@
 <% else %>
   <div class="container">
     <h2>No pictures yet</h2>
-    <%= link_to 'Add a picture', new_picture_path, class: "btn btn-lg btn-primary" %>
   </div>
 <% end %>
+<div class="col-xs-12 col-sm-12 col-md-12 center">
+  <%= link_to 'Add a picture', new_picture_path, class: "btn btn-lg btn-primary add-picture-button" %>
+</div>

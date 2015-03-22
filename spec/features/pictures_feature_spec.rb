@@ -5,9 +5,12 @@ feature 'pictures' do
   context 'no pictures have been added' do
 
     scenario 'should display a prompt to add a picture' do
-      visit '/pictures'
+      sign_up
+      find('.view-picture-button').click
       expect(page).to have_content 'No pictures yet'
       expect(page).to have_link 'Add a picture'
+      find('.add-picture-button').click
+      expect(current_path).to eq "/pictures/new"
     end
 
   end
@@ -31,8 +34,7 @@ feature 'pictures' do
 
     scenario 'prompts user to fill out a form, then displays the new picture' do
       sign_up
-      visit '/pictures'
-      click_link 'Add a picture'
+      visit '/pictures/new'
       attach_file('picture[image]', 'spec/features/del.jpg')
       click_button 'Upload Picture'
       del = Picture.find_by(image_file_name: 'del.jpg')
@@ -63,7 +65,7 @@ feature 'pictures' do
 
   context 'deleting pictures' do
 
-    let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
+    let!(:user) { User.create(username: "test2", email: "test@test.com", password: "testtest") }
     let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
 
     scenario 'removes a picture when a user clicks a delete link' do
