@@ -32,9 +32,9 @@
       <% @picture.comments.each do |comment| %>
           <% if comment.errors.none? %>
             <li>
-              <%= find_username(comment.user_id) %>: <%= comment.comment %> (<%= time_since_created(comment.created_at) %>) | 
+              <%= find_username(comment.user_id) %>: <%= comment.comment %> (<%= time_since_created(comment.created_at) %>) 
               <% if user_signed_in? && current_user.id == comment.user_id %>
-                <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
+                | <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
               <% end %>
             </li> 
           <% end %>
