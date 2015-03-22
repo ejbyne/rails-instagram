@@ -17,7 +17,7 @@
     </div>
   </div><br>
   <h2 class="center">Picture added by <%= find_username(@picture.user_id) %> (<%= time_since_created(@picture.created_at) %>)</h2>
-  <%= image_tag @picture.image.url(:medium), class: "main-pic center-block" %>
+  <%= image_tag @picture.image.url(:medium), class: "main-pic" %>
   <br><br>
   <p>
     <%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
