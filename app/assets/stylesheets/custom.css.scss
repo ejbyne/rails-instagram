@@ -105,7 +105,14 @@ ul {
 }
 
 img.main-pic {
-  width: 100%;
+  max-width: 100%;
+  max-height: 250px;
+}
+
+@media (min-width: 768px) {
+  img.main-pic {
+    max-height: 550px;
+  }
 }
 
 section {
@@ -124,7 +131,14 @@ section {
 }
 
 .thumbnail {
-  width: 100%;
+  max-width: 100%;
+  max-height: 80px;
+}
+
+@media (min-width: 768px) {
+  .thumbnail {
+    max-height: 130px;
+  }
 }
 
 .picture-nav {
