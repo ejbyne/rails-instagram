@@ -1,6 +1,6 @@
 <% if @picture.errors.any? %>
-  <div id="error-explanation" >
-    <div class="alert alert-danger"><%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</div>
+  <div id="error_explanation" >
+    <p class="alert alert-danger"><%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</p>
     <ul>
       <% @picture.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -8,9 +8,7 @@
     </ul>
   </div>
 <% end %>
-
 <h2>Upload your picture</h2>
-
 <%= form_for @picture, html: { multipart: true } do |f| %>
   <%= f.label :image %>
   <%= f.file_field :image %>

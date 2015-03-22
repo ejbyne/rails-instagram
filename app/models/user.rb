@@ -6,10 +6,11 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
   has_many :pictures, dependent: :destroy
   has_many :comments, dependent: :destroy
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.username = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
     end
@@ -18,6 +19,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.username = data["username"] if user.username.blank?
         user.email = data["email"] if user.email.blank?
       end
     end

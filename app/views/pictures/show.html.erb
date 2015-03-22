@@ -1,6 +1,6 @@
 <% if @comment.errors.any? %>
   <section id="error_explanation" >
-    <p> <%= pluralize(@comment.errors.count, "error") %> prohibited the comment from being posted:</p>
+    <p class="alert alert-danger"> <%= pluralize(@comment.errors.count, "error") %> prohibited the comment from being posted:</p>
     <ul>
       <% @comment.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -8,12 +8,15 @@
     </ul>
   </section>
 <% end %>
-
 <section>
-
-  <div class="return-button"><%= link_to 'Back to pictures', pictures_path, class: "btn btn-primary" %></div>
+  <div class="text-center picture-nav">
+    <div class="btn-group" role="group" aria-label="...">
+      <%= link_to "<span class=\"glyphicon glyphicon-chevron-left\"></span>".html_safe, picture_path(@previous_picture), class: "btn btn-default" %>
+      <%= link_to "Back to index", pictures_path, class: "btn btn-default" %>
+      <%= link_to "<span class=\"glyphicon glyphicon-chevron-right\"></span>".html_safe, picture_path(@next_picture), class: "btn btn-default" %>
+    </div>
+  </div><br>
   <h2>Picture added by <%= find_username(@picture.user_id) %></h2>
-
   <%= image_tag @picture.image.url(:medium), class: "main-pic" %>
   <br><br>
   <p>
@@ -23,7 +26,6 @@
     <%= link_to "Delete picture", picture_path(@picture), method: :delete, class: "delete-pic" %>
     <% end %>
   </p>
-
   <h2>Comments</h2>
   <% if @picture.comments.any? %>
     <ul id="comments">
@@ -42,11 +44,9 @@
     <p>No comments</p>
   <% end %>
   <br>
-
   <%= form_for [@picture, @comment] do |f| %>
     <%= f.label :comment %>
     <%= f.text_area :comment %>
     <%= f.submit 'Comment' %>
   <% end %>
-
 </section>

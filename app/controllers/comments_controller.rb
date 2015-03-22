@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
         flash[:success] = "Comment successfully created"
         redirect_to picture_path(@picture)
       else
+        @previous_picture = @picture.previous
+        @next_picture = @picture.next
         render 'pictures/show'
       end
     end

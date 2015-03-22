@@ -1,7 +1,9 @@
 class PicturesController < ApplicationController
+  
+  before_filter :page_params, :only => :index
 
   def index
-    @pictures = Picture.all
+    @pictures = Picture.order(created_at: :desc).paginate(page: params[:page], :per_page => 12)
   end
 
   def new
@@ -33,6 +35,8 @@ class PicturesController < ApplicationController
 
   def show
     @picture = Picture.find(params[:id])
+    @previous_picture = @picture.previous
+    @next_picture = @picture.next
     @comment = Comment.new
   end
 
@@ -51,11 +55,23 @@ class PicturesController < ApplicationController
   private
 
     def picture_params
-      params.require(:picture).permit(:name, :image)
+      params.require(:picture).permit(:image) if params[:picture]
     end
 
     def comment_params
       params.require(:comment).permit(:comment)
+    end
+
+    def page_key
+      (self.class.to_s + "_page").to_sym
+    end
+
+    def page_params
+      if params[:page]
+        session[page_key] = params[:page]
+      elsif session[page_key]
+        params[:page] = session[page_key]
+      end
     end
 
 end

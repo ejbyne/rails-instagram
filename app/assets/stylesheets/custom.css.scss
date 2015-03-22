@@ -10,9 +10,8 @@ body {
 }
 
 .wrapper {
-  min-height: 100%;
+  min-height: 92%;
   height: auto !important;
-  height: 100%;
   padding-bottom: 20px;
   margin: 0 auto -50px;
 }
@@ -73,13 +72,10 @@ h2 {
 
 .footer {
   height: 50px;
+  padding-top: 15px;
   border-top: 1px solid #eaeaea;
   color: #777;
   text-align: center;
-}
-
-.footer small {
-  padding-top: 10px;
 }
 
 textarea {
@@ -130,4 +126,9 @@ section {
 
 .thumbnail {
   width: 100%;
+}
+
+.picture-nav {
+  margin-top: 10px;
+  margin-bottom: -20px;
 }
