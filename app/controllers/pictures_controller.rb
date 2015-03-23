@@ -21,11 +21,9 @@ class PicturesController < ApplicationController
     @comment = Comment.new(comment_params)
     @picture.user_id = current_user.id
     if @picture.save
-      if @comment.comment != ""
-        @comment.user_id = current_user.id
-        @comment.picture_id = @picture.id
-        @comment.save
-      end
+      @comment.user_id = current_user.id
+      @comment.picture_id = @picture.id
+      @comment.save
       flash[:success] = "Picture successfully added"
       redirect_to picture_path(@picture)
     else
