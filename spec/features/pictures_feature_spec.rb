@@ -19,7 +19,7 @@ feature 'pictures' do
 
     let!(:mock_image) { create_image }
 
-    scenario 'displaying pictures' do
+    scenario 'displays pictures' do
       visit('/pictures')
       expect(page).to have_css('.thumbnail')
       expect(page).not_to have_content('No pictures')
@@ -33,7 +33,7 @@ feature 'pictures' do
 
   end
 
-  context 'allows an image to be uploaded for a picture' do
+  context 'uploading pictures' do
 
     scenario 'prompts user to fill out a form, then displays the new picture' do
       sign_up
@@ -62,7 +62,7 @@ feature 'pictures' do
       expect(current_path).to eq('/pictures')
     end
 
-    scenario 'does not let a user delete a picture he or she has not created' do
+    scenario 'does not allow a user to delete a picture he or she has not created' do
       mock_image = create_image
       sign_up
       visit("/pictures/#{mock_image.id}")

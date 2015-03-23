@@ -2,7 +2,14 @@ require 'rails_helper'
 
 feature 'liking pictures' do
 
-  scenario 'a user can like a picture, which updates the like count', js: true do
+  scenario 'allows a user to like a picture, which updates the like count', js: true do
+    sign_up
+    upload_image
+    click_link('Like')
+    expect(page).to have_content('1 Like')
+  end
+
+  def sign_up
     visit('/')
     click_link('Sign up')
     fill_in('Username', with: 'ed')
@@ -10,11 +17,12 @@ feature 'liking pictures' do
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')
     click_button('Sign up')
-    click_link('Add a picture')
+  end
+
+def upload_image
+    visit('/pictures/new')
     attach_file('picture[image]', 'spec/features/test_images/henry.jpg')
     click_button('Upload Picture')
-    click_link('Like')
-    expect(page).to have_content('1 Like')
   end
 
 end

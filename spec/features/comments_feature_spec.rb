@@ -2,15 +2,14 @@ require 'rails_helper'
 
 feature 'adding comments' do
  
-  let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
-  let!(:henry) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
+  let!(:mock_image) { create_image }
 
   context 'leaving comments' do
 
     scenario 'allows users to leave a comment using a form' do
       sign_up
       leave_comment
-      expect(current_path).to eq("/pictures/#{henry.id}")
+      expect(current_path).to eq("/pictures/#{mock_image.id}")
       expect(page).to have_content('ed: Nice picture (0 hours ago)')
     end
 
@@ -20,7 +19,7 @@ feature 'adding comments' do
       expect(page).not_to have_content('Nice picture')
     end
 
-    scenario 'will not let users leave a comment that is too short' do
+    scenario 'does not allow users to leave a comment that is too short' do
       sign_up
       visit('/pictures')
       find('.picture-link').click
@@ -30,7 +29,7 @@ feature 'adding comments' do
       expect(page).to have_content('error')
     end
 
-    scenario 'will not let users leave a comment that is too long' do
+    scenario 'does not allow users to leave a comment that is too long' do
       sign_up
       visit('/pictures')
       find('.picture-link').click
@@ -40,7 +39,21 @@ feature 'adding comments' do
       expect(page).to have_content('error')
     end
 
-    scenario 'will let a user delete a comment he or she has created' do
+    scenario 'allows a comment to be added for a picture at the same time as the picture is posted' do
+      sign_up
+      visit('/pictures/new')
+      attach_file('picture[image]', 'spec/features/test_images/henry.jpg')
+      fill_in('Comment', with: 'Nice picture')
+      click_button('Upload Picture')
+      expect(page).to have_css("img[src*='henry.jpg']")
+      expect(page).to have_content('Nice picture')
+    end
+
+  end
+
+  context 'deleting comments' do
+
+    scenario 'allows a user to delete a comment he or she has created' do
       sign_up
       leave_comment
       expect(page).to have_content('Nice picture')
@@ -48,25 +61,15 @@ feature 'adding comments' do
       expect(page).not_to have_content('Nice picture')
     end
 
-    scenario 'will not let a user delete a comment he or she has not created' do
-      comment = Comment.create(comment: 'Nice picture', picture_id: henry.id, user_id: user.id)
+    scenario 'does not allow a user to delete a comment he or she has not created' do
+      comment = Comment.create(comment: 'Nice picture', picture_id: mock_image.id, user_id: mock_image.user_id)
       sign_up
       visit('/pictures')
       find('.picture-link').click
       expect(page).to have_content('Nice picture')
       expect(page).not_to have_content('Delete comment')
-      page.driver.delete("/pictures/#{henry.id}/comments/#{comment.id}")
-      visit "/pictures/#{henry.id}"
-      expect(page).to have_content('Nice picture')
-    end
-
-    scenario 'will enable a comment to be added when a picture is posted' do
-      sign_up
-      visit('/pictures/new')
-      attach_file('picture[image]', 'spec/features/test_images/henry.jpg')
-      fill_in('Comment', with: 'Nice picture')
-      click_button('Upload Picture')
-      expect(page).to have_css("img[src*='henry.jpg']")
+      page.driver.delete("/pictures/#{mock_image.id}/comments/#{comment.id}")
+      visit "/pictures/#{mock_image.id}"
       expect(page).to have_content('Nice picture')
     end
 
@@ -80,6 +83,11 @@ feature 'adding comments' do
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')
     click_button('Sign up')
+  end
+
+  def create_image
+    user = User.create(username: 'test', email: 'test@test.com', password: 'testtest')
+    Picture.create(image_file_name: 'mock_image', user_id: user.id)
   end
 
   def leave_comment
