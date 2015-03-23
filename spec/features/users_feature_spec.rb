@@ -1,4 +1,7 @@
 require 'rails_helper'
+require_relative 'helpers/test_helper'
+
+include TestHelpers
 
 feature 'users' do
 
@@ -54,19 +57,10 @@ feature 'users' do
       click_link('Sign in')
       fill_in('Email', with: 'ed@test.com')
       fill_in('Password', with: 'testtest')
-      expect(page).to have_content('Sign in successfully.')
+      click_button('Log in')
+      expect(page).to have_content('Signed in successfully.')
     end
 
-  end
-
-  def sign_up
-    visit('/')
-    click_link('Sign up')
-    fill_in('Username', with: 'ed')
-    fill_in('Email', with: 'ed@test.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
   end
 
 end
