@@ -77,4 +77,17 @@ feature 'pictures' do
 
   end
 
+  context 'pagination' do
+
+    scenario 'paginates thumbnails so that there are a maximum of 12 on each page' do
+      sign_up
+      13.times { upload_image }
+      visit('/pictures')
+      expect(page).to have_selector('.thumbnail', count: 12)
+      click_link('Next')
+      expect(page).to have_selector('.thumbnail', count: 1)
+    end
+
+  end
+
 end
