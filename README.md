@@ -13,7 +13,7 @@ The app has evolved into somewhat of a homage to my beagle dog Henry, with the i
 
 The app has a user authentication system, including the ability to sign in with Facebook. Uploaded pictures are stored on AWS S3.
 
-The live version can be viewed [here](https://henrygram.herokuapp.com).
+The live version of the app (hosted on Heroku) can be viewed [here](https://henrygram.herokuapp.com).
 
 ## Technologies used
 
