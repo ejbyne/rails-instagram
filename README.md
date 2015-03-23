@@ -11,7 +11,7 @@ This challenge was a good opportunity to consolidate what I had learned from the
 
 The app has evolved into somewhat of a homage to my beagle dog Henry, with the intention that it is used for my family and friends to share, like and comment on photos of him on the site!
 
-The app has a user authentication system, including the ability to sign in with Facebook.
+The app has a user authentication system, including the ability to sign in with Facebook. Uploaded pictures are stored on AWS S3.
 
 The live version can be viewed [here](https://henrygram.herokuapp.com).
 
@@ -38,7 +38,7 @@ The live version can be viewed [here](https://henrygram.herokuapp.com).
 - User can like pictures
 - User can only add a photo or a comment if he or she has signed in
 - User can only delete a photo that he or she has added
-- User can only delete a comment that he or she added
+- User can only delete a comment that he or she has added
 - Picture thumbnails are paginated so that there are a maximum of 12 on each page
 
 ## Screenshots
