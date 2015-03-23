@@ -16,33 +16,6 @@ body {
   margin: 0 auto -50px;
 }
 
-.push {
-  height: 50px;
-}
-
-#logo {
-  float: left;
-  margin-top: 6px;
-}
-
-#logoname {
-  margin-left: 5px;
-  margin-right: 10px;
-  font-size: 1.7em;
-  letter-spacing: -1px;
-  font-weight: bold;
-  color: #fff
-}
-
-#logoname:hover {
-  text-decoration: none;
-}
-
-#logopicture {
-  height: 40px;
-  padding-bottom: 5px;
-}
-
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
@@ -57,23 +30,12 @@ h2 {
   color: #777;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 .center {
-  text-align: center;
-}
-
-#henry {
-  height: 200px;
-}
-
-.add-picture {
-  float: right;
-}
-
-.footer {
-  height: 50px;
-  padding-top: 15px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
   text-align: center;
 }
 
@@ -99,35 +61,28 @@ textarea {
   }
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-img.main-pic {
-  max-width: 100%;
-  max-height: 250px;
-}
-
-@media (min-width: 768px) {
-  img.main-pic {
-    max-height: 550px;
+#logo {
+  float: left;
+  margin-top: 6px;
+  #logopicture {
+    height: 40px;
+    padding-bottom: 5px;
+  }
+  #logoname {
+    margin-left: 5px;
+    margin-right: 10px;
+    font-size: 1.7em;
+    letter-spacing: -1px;
+    font-weight: bold;
+    color: #fff;
+  }
+  #logoname:hover {
+    text-decoration: none;
   }
 }
 
-section {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.return-button {
-  text-align: right;
-  margin-bottom: -10px;
-}
-
-.delete-pic {
-  float: right;
+#henry-home-picture {
+  height: 200px;
 }
 
 .thumbnail {
@@ -141,12 +96,42 @@ section {
   }
 }
 
-.picture-nav {
-  margin-top: 10px;
-  margin-bottom: -20px;
-}
-
 .pagination {
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+section {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  .picture-nav {
+    margin-top: 10px;
+    margin-bottom: -20px;
+  }
+  img.main-pic {
+    max-width: 100%;
+    max-height: 250px;
+  }
+
+  @media (min-width: 768px) {
+    img.main-pic {
+      max-height: 550px;
+    }
+  }
+  .delete-pic {
+    float: right;
+  }
+}
+
+.push {
+  height: 50px;
+}
+
+.footer {
+  height: 50px;
+  padding-top: 15px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+  text-align: center;
 }
