@@ -1,13 +1,4 @@
-<% if @comment.errors.any? %>
-  <section id="error_explanation" >
-    <p class="alert alert-danger"> <%= pluralize(@comment.errors.count, "error") %> prohibited the comment from being posted:</p>
-    <ul>
-      <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
+<%= render 'layouts/error_messages', object: @comment if @comment.errors.any? %>
 <section>
   <div class="text-center picture-nav">
     <div class="btn-group" role="group" aria-label="...">
@@ -16,37 +7,7 @@
       <%= link_to "<span class=\"glyphicon glyphicon-chevron-right\"></span>".html_safe, picture_path(@next_picture), class: "btn btn-default" %>
     </div>
   </div><br>
-  <h2 class="center">Picture added by <%= find_username(@picture.user_id) %> (<%= time_since_created(@picture.created_at) %>)</h2>
-  <%= image_tag @picture.image.url(:medium), class: "main-pic center-block" %>
-  <br>
-  <p>
-    <%= link_to "Like", picture_likes_path(@picture), class: 'likes-link' %> | 
-    <span class="likes_count"> <%= @picture.likes.count %></span> Likes
-    <% if user_signed_in? && current_user.id == @picture.user_id %>
-    <%= link_to "Delete picture", picture_path(@picture), method: :delete, class: "delete-pic" %>
-    <% end %>
-  </p>
-  <h2>Comments</h2>
-  <% if @picture.comments.any? %>
-    <ul id="comments">
-      <% @picture.comments.each do |comment| %>
-          <% if comment.errors.none? %>
-            <li>
-              <%= find_username(comment.user_id) %>: <%= comment.comment %> (<%= time_since_created(comment.created_at) %>) 
-              <% if user_signed_in? && current_user.id == comment.user_id %>
-                | <%= link_to "Delete comment", picture_comment_path(@picture, comment), method: :delete %>
-              <% end %>
-            </li> 
-          <% end %>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No comments</p>
-  <% end %>
-  <br>
-  <%= form_for [@picture, @comment] do |f| %>
-    <%= f.label :comment %>
-    <%= f.text_area :comment %>
-    <%= f.submit 'Comment' %>
-  <% end %>
+  <%= render 'pictures/picture', picture: @picture %>
+  <%= render 'pictures/comments', picture: @picture %>
+  <%= render 'pictures/comment_form', picture: @picture, comment: @comment %>
 </section>

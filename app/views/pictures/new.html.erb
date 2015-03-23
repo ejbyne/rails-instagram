@@ -1,13 +1,4 @@
-<% if @picture.errors.any? %>
-  <div id="error_explanation" >
-    <p class="alert alert-danger"><%= pluralize(@picture.errors.count, "error") %> prohibited the picture from being posted:</p>
-    <ul>
-      <% @picture.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render 'layouts/error_messages', object: @picture if @picture.errors.any? %>
 <h2>Upload your picture</h2>
 <%= form_for @picture, html: { multipart: true } do |f| %>
   <%= f.label :image %>
