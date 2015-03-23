@@ -4,115 +4,72 @@ feature 'pictures' do
 
   context 'no pictures have been added' do
 
-    scenario 'should display a prompt to add a picture' do
+    scenario 'displays a prompt to add a picture' do
       sign_up
-      find('.view-picture-button').click
-      expect(page).to have_content 'No pictures yet'
-      expect(page).to have_link 'Add a picture'
+      find('.view-pictures-button').click
+      expect(page).to have_content('No pictures yet')
+      expect(page).to have_link('Add a picture')
       find('.add-picture-button').click
-      expect(current_path).to eq "/pictures/new"
+      expect(current_path).to eq('/pictures/new')
     end
 
   end
 
   context 'pictures have been added' do
 
-    before do
-      user = User.create(username: "test", email: "test@test.com", password: "testtest")
-      Picture.create(image_file_name: "mock_image", user_id: user.id)
-    end
+    let!(:mock_image) { create_image }
 
-    scenario 'display pictures' do
-      visit '/pictures'
+    scenario 'displaying pictures' do
+      visit('/pictures')
       expect(page).to have_css('.thumbnail')
       expect(page).not_to have_content('No pictures')
     end
 
-  end
-
-  context 'uploading pictures' do
-
-    scenario 'prompts user to fill out a form, then displays the new picture' do
-      sign_up
-      visit '/pictures/new'
-      attach_file('picture[image]', 'spec/features/del.jpg')
-      click_button 'Upload Picture'
-      del = Picture.find_by(image_file_name: 'del.jpg')
-      expect(current_path).to eq "/pictures/#{del.id}"
-    end
-
-
-    scenario 'does not allow a picture to be added if the user is not logged in' do
-      visit '/pictures/new'
-      expect(page).not_to have_content('Upload Picture')
-      expect(page).to have_content('You must be logged in to add a picture')
-    end
-
-  end
-
-  context 'viewing pictures' do
-
-    let!(:user) { User.create(username: "test", email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
-
-    scenario 'lets a user view a picture' do
-      visit '/pictures'
+    scenario 'allows a user to view a picture' do
+      visit('/pictures')
       find('.picture-link').click
-      expect(current_path).to eq "/pictures/#{beach.id}"
-    end
-
-  end
-
-  context 'deleting pictures' do
-
-    let!(:user) { User.create(username: "test2", email: "test@test.com", password: "testtest") }
-    let!(:beach) { Picture.create(image_file_name: "mock_image", user_id: user.id) }
-
-    scenario 'removes a picture when a user clicks a delete link' do
-      visit "/"
-      click_link "Sign in"
-      fill_in("Email", with: "test@test.com")
-      fill_in("Password", with: "testtest")
-      click_button("Log in")
-      visit "/pictures/#{beach.id}"
-      click_link 'Delete picture'
-      expect(page).not_to have_content 'Beach'
-      expect(page).to have_content 'Picture deleted successfully'
-    end
-
-    scenario 'does not let a user delete a picture he or she has not created' do
-      sign_up
-      visit "/pictures/#{beach.id}"
-      expect(page).not_to have_content("Delete picture")
-      page.driver.delete("/pictures/#{beach.id}")
-      visit "/pictures"
-      expect(page).to have_css(".thumbnail")
+      expect(current_path).to eq("/pictures/#{mock_image.id}")
     end
 
   end
 
   context 'allows an image to be uploaded for a picture' do
 
-    scenario "picture create form contains image upload option" do
+    scenario 'prompts user to fill out a form, then displays the new picture' do
       sign_up
-      visit '/pictures/new'
-      expect(page).to have_selector('#picture_image')
+      upload_image
+      henry = Picture.find_by(image_file_name: 'henry.jpg')
+      expect(current_path).to eq("/pictures/#{henry.id}")
+      expect(page).to have_css("img[src*='henry.jpg']")
+      expect(page).to have_content('Picture added by ed (0 hours ago)')
     end
 
-    scenario "allows an image to be uploaded" do
-      sign_up
-      visit '/pictures/new'
-      attach_file('picture[image]', 'spec/features/del.jpg')
-      click_button 'Upload Picture'
-      expect(page).to have_css("img[src*='del.jpg']")
+    scenario 'does not allow a picture to be added if the user is not logged in' do
+      visit('/pictures/new')
+      expect(page).not_to have_content('Upload Picture')
+      expect(page).to have_content('You must be logged in to add a picture')
     end
 
-    scenario "shows the username of the user who uploaded the picture" do
+  end
+
+  context 'deleting pictures' do
+
+    scenario 'removes a picture when a user clicks a delete link' do
       sign_up
-      visit '/pictures/new'
-      attach_file('picture[image]', 'spec/features/del.jpg')
-      click_button 'Upload Picture'
-      expect(page).to have_content('Picture added by test')
+      upload_image
+      click_link('Delete picture')
+      expect(page).to have_content('Picture deleted successfully')
+      expect(current_path).to eq('/pictures')
+    end
+
+    scenario 'does not let a user delete a picture he or she has not created' do
+      mock_image = create_image
+      sign_up
+      visit("/pictures/#{mock_image.id}")
+      expect(page).not_to have_content("Delete picture")
+      page.driver.delete("/pictures/#{mock_image.id}")
+      visit("/pictures/#{mock_image.id}")
+      expect(page).to have_css('img')
     end
 
   end
@@ -120,11 +77,22 @@ feature 'pictures' do
   def sign_up
     visit('/')
     click_link('Sign up')
-    fill_in('Username', with: 'test')
-    fill_in('Email', with: 'test@example.com')
+    fill_in('Username', with: 'ed')
+    fill_in('Email', with: 'ed@test.com')
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')
     click_button('Sign up')
+  end
+
+  def create_image
+    user = User.create(username: 'test', email: 'test@test.com', password: 'testtest')
+    Picture.create(image_file_name: 'mock_image', user_id: user.id)
+  end
+
+  def upload_image
+    visit('/pictures/new')
+    attach_file('picture[image]', 'spec/features/test_images/henry.jpg')
+    click_button('Upload Picture')
   end
 
 end

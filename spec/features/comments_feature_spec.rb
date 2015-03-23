@@ -11,7 +11,7 @@ feature 'adding comments' do
       sign_up
       leave_comment
       expect(current_path).to eq("/pictures/#{henry.id}")
-      expect(page).to have_content('ed: Nice picture')
+      expect(page).to have_content('ed: Nice picture (0 hours ago)')
     end
 
     scenario 'does not allow users to leave a comment if they are not logged in' do
