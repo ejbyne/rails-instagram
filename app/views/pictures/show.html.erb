@@ -7,7 +7,7 @@
       <%= link_to "<span class=\"glyphicon glyphicon-chevron-right\"></span>".html_safe, picture_path(@next_picture), class: "btn btn-default" %>
     </div>
   </div><br>
-  <%= render 'pictures/picture', picture: @picture %>
+  <%= render @picture %>
   <%= render 'pictures/comments', picture: @picture %>
   <%= render 'pictures/comment_form', picture: @picture, comment: @comment %>
 </section>
