@@ -9,11 +9,11 @@ My Week 8 challenge at Makers Academy was to build a clone of the Instagram app 
 
 This challenge was a good opportunity to consolidate what I had learned from the [Yelp clone project](https://github.com/ejbyne/rails-yelp) and Michael Hartl's Ruby on Rails [tutorial](https://github.com/ejbyne/rails-twitter).
 
-The app has evolved into somewhat of a homage to my beagle dog Henry, with the intention that it is used for my family and friends to share photos of him on the site!
-
-The live version can be viewed [here](https://henrygram.herokuapp.com).
+The app has evolved into somewhat of a homage to my beagle dog Henry, with the intention that it is used for my family and friends to share, like and comment on photos of him on the site!
 
 The app has a user authentication system, including the ability to sign in with Facebook.
+
+The live version can be viewed [here](https://henrygram.herokuapp.com).
 
 ## Technologies used
 
@@ -23,7 +23,7 @@ The app has a user authentication system, including the ability to sign in with 
 - ActiveRecord
 - RSpec
 - Capybara
-- Gems: Devise, Omniauth, Paperclip
+- Gems: Devise, Omniauth, Paperclip, Will_Paginate
 - ImageMagick
 - AWS S3
 - Bootstrap
@@ -39,6 +39,18 @@ The app has a user authentication system, including the ability to sign in with 
 - User can only add a photo or a comment if he or she has signed in
 - User can only delete a photo that he or she has added
 - User can only delete a comment that he or she added
+- Picture thumbnails are paginated so that there are a maximum of 12 on each page
+
+## Screenshots
+
+### Homepage
+<img src="images/homepage.png">
+
+### Picture thumbnails
+<img src="images/picture-index.png">
+
+### Picture view
+<img src="images/picture-view.png">
 
 ## To do list
 
